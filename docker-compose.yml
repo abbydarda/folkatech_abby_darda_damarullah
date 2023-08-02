@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+ service_abby_darda_damarullah:
+  container_name: 'service_abby_darda_damarullah'
+  build:
+   context: ./
+   dockerfile: Dockerfile
+   target: ${NODE_ENV}
+  volumes:
+   - .:/app
+  ports:
+   - ${APP_PORT}:${APP_PORT}
+  env_file:
+   - .env
+  depends_on:
+   - db_abby_darda_damarullah
+   - redis_abby_darda_damarullah
+
+ db_abby_darda_damarullah:
+  container_name: db_abby_darda_damarullah
+  image: mongo
+  restart: always
+  ports:
+   - 27017:27017
+
+ redis_abby_darda_damarullah:
+  container_name: redis_abby_darda_damarullah
+  image: redis
+  restart: always
+  ports:
+   - '6379:6379'
